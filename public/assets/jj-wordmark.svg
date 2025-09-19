@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 180">
+  <defs>
+    <linearGradient id="jjg" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#7CFF6B"/>
+      <stop offset="100%" stop-color="#2ACB4E"/>
+    </linearGradient>
+  </defs>
+  <text x="450" y="120" text-anchor="middle" font-family="'Impact','Arial Black',sans-serif"
+        font-size="120" fill="url(#jjg)" stroke="#0d3b1c" stroke-width="6" paint-order="stroke">
+    JUICE JUNKIES
+  </text>
+</svg>
