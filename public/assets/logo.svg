@@ -1,7 +1,0 @@
-
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <circle cx="100" cy="100" r="92" fill="#f5efdc" stroke="#6b1f1f" stroke-width="6"/>
-  <path d="M55 70c30 10 60 10 90 0" stroke="#9a2a2a" stroke-width="6" fill="none"/>
-  <path d="M55 130c30-10 60-10 90 0" stroke="#9a2a2a" stroke-width="6" fill="none"/>
-  <text x="100" y="108" text-anchor="middle" font-size="44" font-family="DM Serif Display, serif" fill="#6b1f1f">MLB</text>
-</svg>
