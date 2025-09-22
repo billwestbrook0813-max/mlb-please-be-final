@@ -242,9 +242,10 @@ async function loadAll(force=false){
         const pp = g.teams?.[side]?.probablePitcher;
         if (!pp) return null;
         const stats = pp?.stats?.find(s=>s.group?.displayName==='pitching' && s.type?.displayName==='season');
-        const era = stats?.stats?.era;
-        const wins = stats?.stats?.wins;
-        const losses = stats?.stats?.losses;
+        const statLine = stats?.splits?.[0]?.stat;
+        const era = statLine?.era;
+        const wins = statLine?.wins;
+        const losses = statLine?.losses;
         return { name: pp.fullName, era, wins, losses };
       }
       const hp = parsePitcher('home');
