@@ -183,13 +183,40 @@ function median(arr){
 
 function collectGameTotals(oddsData, homeTeam, awayTeam){
   const totals = [];
+
+  function collectFromMarket(market){
+    if (!market?.outcomes?.length) return;
+    const groups = new Map();
+
+    for (const outcome of market.outcomes){
+      const name = outcome?.name?.toLowerCase();
+      if (name !== 'over' && name !== 'under') continue;
+      const pointNum = Number(outcome.point);
+      if (!Number.isFinite(pointNum)) continue;
+      const key = String(pointNum);
+      const entry = groups.get(key) || { point: pointNum, over: null, under: null };
+      if (name === 'over' && !entry.over) entry.over = { ...outcome, point: pointNum };
+      if (name === 'under' && !entry.under) entry.under = { ...outcome, point: pointNum };
+      groups.set(key, entry);
+    }
+
+    for (const entry of groups.values()){
+      if (!entry.over || !entry.under) continue;
+      const t = impliedTotalFromMarket({ outcomes: [entry.over, entry.under] });
+      if (Number.isFinite(t)) totals.push(t);
+    }
+  }
+
   for (const ev of oddsData){
     const ht = ev.home_team, at = ev.away_team;
     if (!(teamMatch(homeTeam, ht) && teamMatch(awayTeam, at))) continue;
-    const market = ev.bookmakers?.[0]?.markets?.find(m=>m.key==='totals');
-    if (!market) continue;
-    const t = impliedTotalFromMarket(market);
-    if (Number.isFinite(t)) totals.push(t);
+    for (const book of ev.bookmakers || []){
+      for (const market of book.markets || []){
+        if (market?.key === 'totals' || market?.key === 'alternate_totals'){
+          collectFromMarket(market);
+        }
+      }
+    }
   }
   return median(totals);
 }
